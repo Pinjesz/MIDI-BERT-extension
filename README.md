@@ -18,7 +18,9 @@ With this repository, you can:
 
 All the datasets employed in this work are publicly available.
 
-Currently there are 3 implemented tokenizations from miditok package: REMI, TSD and Structured but implementing others should be easy.
+Currently there are 4* implemented tokenizations from miditok package: REMI, TSD, Structured and CP but implementing others should be easy.
+
+\* *Note*: CP tokenization is not fully implemented right now and adding new types of tokens will not work.
 
 ## Installation
 
@@ -74,7 +76,7 @@ sh scripts/<tokenization_name>/pretrain.sh
 In the file you can specify the arguments, which are:
 
 * Required:
-  * tokenization - name of the tokenization (remi, tsd, structured)
+  * tokenization - name of the tokenization (remi, tsd, structured, cp)
 * Optional
   * name - experiment name, defines folder name where results will be saved: `result/<tokenization_name>/pretrain/<name>`, default: default
   * max_seq_len - all input token sequences are padded to this length, default: 512
@@ -89,6 +91,7 @@ In the file you can specify the arguments, which are:
   * cuda_devices - indices of gpu devices, default: 0, 1, 2, 3
   * use_wandb - if present will try to log training data to Weight&Biases
   * project - name of wandb project, default: wimu
+  * old - uses the tokenization from MidiBERT-Piano paper (available for remi and cp only), tokenization config is not used
 
 ## C. Fine-tune & Evaluate on Downstream Tasks
 
@@ -101,7 +104,7 @@ sh scripts/<tokenization_name>/finetune.sh
 In the file you can specify the arguments, which are:
 
 * Required:
-  * tokenization - name of the tokenization (remi, tsd, structured)
+  * tokenization - name of the tokenization (remi, tsd, structured, cp)
   * task - name of the task (melody, velocity, composer, emotion)
 * Optional
   * name - must be the same as used in pretrain, results will be saved in: `result/<tokenization_name>/finetune/<task>_<name>`
@@ -116,6 +119,7 @@ In the file you can specify the arguments, which are:
   * cuda_devices - indices of gpu devices, default: 0, 1, 2, 3
   * use_wandb - if present will try to log training data to Weight&Biases
   * project - name of wandb project, default: wimu
+  * old - uses the tokenization from MidiBERT-Piano paper (available for remi and cp only), tokenization config is not used
 
 ### 2. Evaluation
 
@@ -126,7 +130,7 @@ sh scripts/<tokenization_name>/eval.sh
 In the file you can specify the arguments, which are:
 
 * Required:
-  * tokenization - name of the tokenization (remi, tsd, structured)
+  * tokenization - name of the tokenization (remi, tsd, structured, cp)
   * task - name of the task (melody, velocity, composer, emotion)
 * Optional
   * name - must be the same as used in finetune, results will be saved in: `result/<tokenization_name>/eval/<name>`
@@ -140,3 +144,4 @@ In the file you can specify the arguments, which are:
   * cuda_devices - indices of gpu devices, default: 0, 1, 2, 3
   * use_wandb - if present will try to log training data to Weight&Biases
   * project - name of wandb project, default: wimu
+  * old - uses the tokenization from MidiBERT-Piano paper (available for remi and cp only), tokenization config is not used

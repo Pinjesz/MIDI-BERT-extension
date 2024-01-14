@@ -50,6 +50,10 @@ def get_args():
 
     args = parser.parse_args()
 
+    if args.old and args.tokenization != "remi":
+        print("An 'old' tokenization is only available for remi and cp")
+        exit(1)
+
     if args.old:
         args.dict_file = f"dict/{args.tokenization}_old.pkl"
     else:
