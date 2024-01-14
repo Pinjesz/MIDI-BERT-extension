@@ -1,0 +1,7 @@
+**/__pycache__
+.vscode
+wandb
+Data/Dataset/**/
+result
+Data/*_txt/*.txt
+.env
