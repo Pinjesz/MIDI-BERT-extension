@@ -197,7 +197,7 @@ if __name__ == "__main__":
         special_tokens=["PAD", "MASK"],
         pitch_range=(22, 108),
         beat_res={(0, 16): 4},
-        nb_velocities=127,
+        num_velocities=127,
         use_programs=True,
         programs=(0, 1, 2, 3),
     )
