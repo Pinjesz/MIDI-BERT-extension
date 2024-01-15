@@ -14,7 +14,7 @@ from finetune_trainer import FinetuneTrainer
 from MidiBERT.common.finetune_dataset import FinetuneDataset
 from finetune_model import TokenClassification, SequenceClassification
 
-from prepare_data.new.cp.config import config_dict
+from prepare_data.new.cp.config import tokenization_dict
 
 
 def get_args():
@@ -190,19 +190,38 @@ def main():
     if args.use_wandb:
         import wandb
 
+        config = {
+            "type": "eval",
+            "tokenization": args.tokenization,
+            "task": args.task,
+            "name": args.name,
+            "max_seq_len": args.max_seq_len,
+            "hidden state": args.hs,
+            "index_layer": args.index_layer,
+            "num_workers": args.num_workers,
+            "batch_size": args.batch_size,
+            "lr": args.lr,
+            "cpu": args.cpu,
+            "old": args.old
+        }
+
         if args.old:
             wandb.init(
                 project=args.project,
                 job_type=f'eval_{args.task}_cp',
-                config={"type":"old"}
+                config=config
             )
         else:
-            for k, v in config_dict.items():
-                config_dict[k] = f"{v}"
+            for k, v in tokenization_dict.items():
+                if type(v) is dict:
+                    tokenization_dict[k] = f"{v}"
+
+            config["tokenization_config"] = tokenization_dict
+
             wandb.init(
                 project=args.project,
                 job_type=f'eval_{args.task}_cp',
-                config=config_dict
+                config=config
                 )
 
     print("Loading Dictionary")

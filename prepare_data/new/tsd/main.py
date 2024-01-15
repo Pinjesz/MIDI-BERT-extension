@@ -180,7 +180,7 @@ def main():
     pathlib.Path(args.output_dir).mkdir(parents=True, exist_ok=True)
 
     # initialize model
-    config = miditok.TokenizerConfig.from_dict(config_dict)
+    config = miditok.TokenizerConfig.from_dict(tokenization_dict)
     vocabulary = make_simple_new(config, "tsd")
 
     with open("dict/tsd_new.pkl", "wb") as f:

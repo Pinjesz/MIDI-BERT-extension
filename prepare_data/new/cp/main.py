@@ -190,7 +190,7 @@ def main():
     pathlib.Path(args.output_dir).mkdir(parents=True, exist_ok=True)
 
     # initialize model
-    config = miditok.TokenizerConfig.from_dict(config_dict)
+    config = miditok.TokenizerConfig.from_dict(tokenization_dict)
     tokenizer, vocabulary = make_cp_new(config)
 
     if args.dataset == "pop909":

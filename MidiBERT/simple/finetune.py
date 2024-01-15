@@ -11,9 +11,9 @@ from model import MidiBert
 from finetune_trainer import FinetuneTrainer
 from MidiBERT.common.finetune_dataset import FinetuneDataset
 
-from prepare_data.new.remi.config import config_dict as remi_dict
-from prepare_data.new.tsd.config import config_dict as tsd_dict
-from prepare_data.new.structured.config import config_dict as structured_dict
+from prepare_data.new.remi.config import tokenization_dict as remi_dict
+from prepare_data.new.tsd.config import tokenization_dict as tsd_dict
+from prepare_data.new.structured.config import tokenization_dict as structured_dict
 
 
 def get_args():
@@ -107,28 +107,48 @@ def main():
     args = get_args()
 
     if args.tokenization == "remi":
-        config_dict = remi_dict
+        tokenization_dict = remi_dict
     elif args.tokenization == "tsd":
-        config_dict = tsd_dict
+        tokenization_dict = tsd_dict
     elif args.tokenization == "structured":
-        config_dict = structured_dict
+        tokenization_dict = structured_dict
 
     if args.use_wandb:
         import wandb
+
+        config = {
+            "type": "finetune",
+            "tokenization": args.tokenization,
+            "task": args.task,
+            "name": args.name,
+            "max_seq_len": args.max_seq_len,
+            "hidden state": args.hs,
+            "index_layer": args.index_layer,
+            "num_workers": args.num_workers,
+            "batch_size": args.batch_size,
+            "max epochs": args.epochs,
+            "lr": args.lr,
+            "cpu": args.cpu,
+            "old": args.old
+        }
 
         if args.old:
             wandb.init(
                 project=args.project,
                 job_type=f'finetune_{args.task}_{args.tokenization}',
-                config={"type":"old"}
+                config=config
             )
         else:
-            for k, v in config_dict.items():
-                config_dict[k] = f"{v}"
+            for k, v in tokenization_dict.items():
+                if type(v) is dict:
+                    tokenization_dict[k] = f"{v}"
+
+            config["tokenization_config"] = tokenization_dict
+
             wandb.init(
                 project=args.project,
                 job_type=f'finetune_{args.task}_{args.tokenization}',
-                config=config_dict
+                config=config
                 )
 
     print("Loading Dictionary")

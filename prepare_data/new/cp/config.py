@@ -15,7 +15,7 @@ tokenizer = TokenizerConfig(
     programs=(0, 1, 2, 3)
 )
 
-config_dict = tokenizer.to_dict()
+tokenization_dict = tokenizer.to_dict()
 
 Composer = {
     "Bethel": 0,
@@ -38,7 +38,7 @@ Emotion = {
 
 
 def main():
-    config = TokenizerConfig.from_dict(config_dict)
+    config = TokenizerConfig.from_dict(tokenization_dict)
     _, vocabulary = make_cp_new(config)
 
     with open("dict/cp_new.pkl", "wb") as f:

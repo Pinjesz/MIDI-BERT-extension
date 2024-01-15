@@ -16,7 +16,7 @@ tokenizer = TokenizerConfig(
     use_tempos=True,
 )
 
-config_dict = tokenizer.to_dict()
+tokenization_dict = tokenizer.to_dict()
 
 
 Composer = {
@@ -40,7 +40,7 @@ Emotion = {
 
 
 def main():
-    config = TokenizerConfig.from_dict(config_dict)
+    config = TokenizerConfig.from_dict(tokenization_dict)
     _, vocabulary = make_simple_new(config, "structured")
 
     with open("dict/structured_new.pkl", "wb") as f:
