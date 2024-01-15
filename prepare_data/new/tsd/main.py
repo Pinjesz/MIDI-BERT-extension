@@ -181,10 +181,7 @@ def main():
 
     # initialize model
     config = miditok.TokenizerConfig.from_dict(tokenization_dict)
-    vocabulary = make_simple_new(config, "tsd")
-
-    with open("dict/tsd_new.pkl", "wb") as f:
-        pickle.dump(vocabulary, f)
+    tokenizer, vocabulary = make_simple_new(config, "tsd")
 
     if args.dataset == "pop909":
         dataset = args.dataset

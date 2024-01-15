@@ -7,13 +7,15 @@ from dict.make_dict import make_simple_new
 DEFAULT_VELOCITY_BINS = np.array([0, 32, 48, 64, 80, 96, 128])
 
 tokenizer = TokenizerConfig(
+    ### Used for labels, do not change
     special_tokens=["PAD", "MASK"],
-    pitch_range=(22, 108),
-    beat_res={(0, 16): 4},
     num_velocities=127,
     use_programs=True,
-    programs=(0, 1, 2, 3),
-    use_tempos=True,
+    programs=(0, 1, 2),
+    ###
+
+    pitch_range=(22, 108),
+    beat_res={(0, 16): 4}
 )
 
 tokenization_dict = tokenizer.to_dict()
