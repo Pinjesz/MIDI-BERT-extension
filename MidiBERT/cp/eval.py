@@ -30,7 +30,8 @@ def get_args():
     )
 
     ### path setup ###
-    parser.add_argument("--dict_file", type=str, default="dict/cp_old.pkl")
+    parser.add_argument("--dict_file", type=str)
+    parser.add_argument('--name', type=str, default='default')
     parser.add_argument("--ckpt", type=str, default="")
 
     ### parameter setting ###
@@ -73,22 +74,22 @@ def get_args():
     if args.task == "melody":
         args.class_num = 4
         args.ckpt = (
-            root + "melody_default/model_best.ckpt" if args.ckpt == "" else args.ckpt
+            root + f"melody_{args.name}/model_best.ckpt" if args.ckpt == "" else args.ckpt
         )
     elif args.task == "velocity":
         args.class_num = 7
         args.ckpt = (
-            root + "velocity_default/model_best.ckpt" if args.ckpt == "" else args.ckpt
+            root + f"velocity_{args.name}/model_best.ckpt" if args.ckpt == "" else args.ckpt
         )
     elif args.task == "composer":
         args.class_num = 8
         args.ckpt = (
-            root + "composer_default/model_best.ckpt" if args.ckpt == "" else args.ckpt
+            root + f"composer_{args.name}/model_best.ckpt" if args.ckpt == "" else args.ckpt
         )
     elif args.task == "emotion":
         args.class_num = 4
         args.ckpt = (
-            root + "emotion_default/model_best.ckpt" if args.ckpt == "" else args.ckpt
+            root + f"emotion_{args.name}/model_best.ckpt" if args.ckpt == "" else args.ckpt
         )
 
     return args
@@ -181,7 +182,7 @@ def conf_mat(_y, output, task, name):
 
     _title = "BERT (CP): " + task + " task"
 
-    save_cm_fig(cm, classes=target_names, normalize=False, title=_title, seq=seq, path=f'result/cp/eval/{name}/cm_cp_{task}.jpg')
+    save_cm_fig(cm, classes=target_names, normalize=False, title=_title, seq=seq, path=f'result/cp/eval/{name}/cm_{task}.jpg')
 
 
 def main():
