@@ -97,7 +97,7 @@ class FinetuneTrainer:
 
         for x, y in pbar:  # (batch, 512, 768)
             batch = x.shape[0]
-            x, y = x.to(self.device), y.to(
+            x, y = x.to(self.device), y.to(torch.long).to(
                 self.device
             )  # seq: (batch, 512, 4), (batch) / token: , (batch, 512)
 
